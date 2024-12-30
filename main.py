@@ -1,16 +1,11 @@
 from monitoramento.eventos import MonitorEventos
 from monitoramento.ociosidade import MonitorOciosidade
+from monitoramento.logger import EventoLogger
 from threading import Thread
 import time
-import logging
 
 def main():
-    logger = logging.getLogger('monitoramento')
-    handler = logging.FileHandler('monitoramento.log')
-    handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
-    logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
-
+    logger = EventoLogger.configurar_logger_principal()
     logger.info("Monitoramento iniciado.")
 
     monitor_eventos = MonitorEventos()
