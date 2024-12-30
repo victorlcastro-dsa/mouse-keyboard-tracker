@@ -1,6 +1,7 @@
 from pynput import keyboard, mouse
 from threading import Thread
 import time
+from monitoramento.logger import EventoLogger
 
 class MonitorEventos:
     def __init__(self):
@@ -8,6 +9,8 @@ class MonitorEventos:
         self.mouse_eventos = []
         self.ultimo_evento = time.time()
         self.observers = []
+        self.teclado_logger = EventoLogger('teclado_eventos.log')
+        self.mouse_logger = EventoLogger('mouse_eventos.log')
 
     def adicionar_observador(self, observador):
         self.observers.append(observador)
@@ -18,8 +21,11 @@ class MonitorEventos:
 
     def capturar_teclado(self):
         def on_press(key):
-            self.teclado_eventos.append((time.time(), f"Tecla pressionada: {key}"))
-            self.ultimo_evento = time.time()
+            evento = f"Tecla pressionada: {key}"
+            timestamp = time.time()
+            self.teclado_eventos.append((timestamp, evento))
+            self.teclado_logger.registrar_evento(evento)
+            self.ultimo_evento = timestamp
             self.notificar_observadores()
 
         with keyboard.Listener(on_press=on_press) as listener:
@@ -28,11 +34,21 @@ class MonitorEventos:
     def capturar_mouse(self):
         def on_click(x, y, button, pressed):
             evento = f"Mouse {'clicado' if pressed else 'solto'} em ({x}, {y}) com {button}"
-            self.mouse_eventos.append((time.time(), evento))
-            self.ultimo_evento = time.time()
+            timestamp = time.time()
+            self.mouse_eventos.append((timestamp, evento))
+            self.mouse_logger.registrar_evento(evento)
+            self.ultimo_evento = timestamp
             self.notificar_observadores()
 
-        with mouse.Listener(on_click=on_click) as listener:
+        def on_move(x, y):
+            evento = f"Mouse movido para ({x}, {y})"
+            timestamp = time.time()
+            self.mouse_eventos.append((timestamp, evento))
+            self.mouse_logger.registrar_evento(evento)
+            self.ultimo_evento = timestamp
+            self.notificar_observadores()
+
+        with mouse.Listener(on_click=on_click, on_move=on_move) as listener:
             listener.join()
 
     def iniciar_monitoramento(self):

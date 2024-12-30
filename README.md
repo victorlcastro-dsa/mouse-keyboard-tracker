@@ -33,3 +33,5 @@ python -m unittest discover -s tests
 ```bash
 python main.py
 ```
+
+10 minutos de ociosidade

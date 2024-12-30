@@ -1,6 +1,6 @@
 from monitoramento.eventos import MonitorEventos
 from monitoramento.ociosidade import MonitorOciosidade
-from monitoramento.analise import AnaliseEventos
+from threading import Thread
 import time
 
 def main():
@@ -15,8 +15,6 @@ def main():
     try:
         while True:
             time.sleep(10)
-            analise = AnaliseEventos(monitor_eventos.teclado_eventos, monitor_eventos.mouse_eventos)
-            analise.gerar_relatorio()
     except KeyboardInterrupt:
         print("Monitoramento encerrado.")
 
