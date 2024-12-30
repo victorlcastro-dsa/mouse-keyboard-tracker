@@ -8,7 +8,7 @@ import time
 from datetime import datetime
 
 def main():
-    horario_inicio = datetime.now().strftime('%H-%M-%S')
+    horario_inicio = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     logger = EventoLogger.configurar_logger_principal()
     logger.info("Monitoramento iniciado.")
 
