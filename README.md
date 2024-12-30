@@ -5,14 +5,14 @@
 ### No Linux/macOS
 
 ```bash
-python3.11.9 -m venv venv  # Cria o ambiente virtual com Python 3.11.9
+python3.11 -m venv venv  # Cria o ambiente virtual com Python 3.11
 source venv/bin/activate  # Ativa o ambiente virtual
 ```
 
 ## No Windows
 
 ```bash
-python3.11.9 -m venv venv  # Cria o ambiente virtual com Python 3.11.9
+python3.11 -m venv venv  # Cria o ambiente virtual com Python 3.11
 venv\Scripts\activate  # Ativa o ambiente virtual
 ```
 
