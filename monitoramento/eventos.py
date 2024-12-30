@@ -1,12 +1,13 @@
 from pynput import keyboard, mouse
 from threading import Thread
 import time
+from collections import deque
 from monitoramento.logger import EventoLogger
 
 class MonitorEventos:
     def __init__(self):
-        self.teclado_eventos = []
-        self.mouse_eventos = []
+        self.teclado_eventos = deque()
+        self.mouse_eventos = deque()
         self.ultimo_evento = time.time()
         self.observers = []
         self.teclado_logger = EventoLogger('teclado_eventos.log')

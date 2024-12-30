@@ -1,4 +1,5 @@
 import time
+from collections import deque
 from monitoramento.logger import EventoLogger
 from monitoramento.config import Config
 
