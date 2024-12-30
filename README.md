@@ -65,3 +65,7 @@ Ctrl + C
 - **Singleton**: Garante que a verificação de ociosidade seja centralizada e consistente, evitando múltiplas instâncias que poderiam levar a resultados conflitantes.
 
 - **Observer**: Permite que diferentes partes do sistema reajam a eventos de entrada sem estarem fortemente acopladas, facilitando a adição de novos tipos de observadores no futuro.
+
+### Threads Utilizadas
+
+O projeto utiliza três threads principais para realizar o monitoramento de atividades. A primeira thread é responsável por capturar eventos de teclado, enquanto a segunda thread captura eventos de mouse, ambas implementadas na classe `MonitorEventos`. A terceira thread, implementada na classe `MonitorOciosidade`, verifica periodicamente a ociosidade do usuário. Essas threads são iniciadas no arquivo `main.py` e permitem que o monitoramento de eventos e a verificação de ociosidade ocorram simultaneamente, garantindo uma captura eficiente e em tempo real das atividades do usuário.
