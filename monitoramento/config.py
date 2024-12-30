@@ -7,3 +7,7 @@ class Config:
     HORA_INICIO_NOTURNO = 18
     TAMANHO_MINIMO_ARQUIVO = 0  # Tamanho mínimo do arquivo em bytes
     INTERVALO_VERIFICACAO_ARQUIVO = 1  # Intervalo de verificação do arquivo em segundos
+    TEMPO_OCIOSO_ACUMULADO = 0  # Tempo ocioso acumulado inicial
+    TEMPO_OCIOSO_TOTAL = 0  # Tempo ocioso total
+    SEGUNDOS_EM_UM_MINUTO = 60  # Segundos em um minuto
+    SEGUNDOS_EM_UMA_HORA = 3600  # Segundos em uma hora

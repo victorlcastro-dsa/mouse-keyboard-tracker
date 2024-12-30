@@ -25,6 +25,7 @@ def main():
             time.sleep(Config.INTERVALO_SLEEP)
     except KeyboardInterrupt:
         logger.info("Monitoramento encerrado.")
+        monitor_ociosidade.registrar_tempo_total_ociosidade()
         EventoLogger.fechar_loggers()
         LogManager.mover_logs_para_relatorios(horario_inicio)
         print("Monitoramento encerrado.")
