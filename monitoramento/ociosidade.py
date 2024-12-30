@@ -1,5 +1,6 @@
 import time
 from monitoramento.logger import EventoLogger
+from monitoramento.config import Config
 
 class MonitorOciosidade:
     _instance = None
@@ -9,7 +10,7 @@ class MonitorOciosidade:
             cls._instance = super(MonitorOciosidade, cls).__new__(cls)
         return cls._instance
 
-    def __init__(self, tempo_maximo_ocioso=600):
+    def __init__(self, tempo_maximo_ocioso=Config.TEMPO_MAXIMO_OCIOSO):
         if not hasattr(self, 'initialized'):
             self.tempo_maximo_ocioso = tempo_maximo_ocioso
             self.ultimo_evento = time.time()
@@ -33,4 +34,4 @@ class MonitorOciosidade:
                 else:
                     evento = f"O usuário está ocioso há {int(tempo_ocioso)} segundos."
                     self.ociosidade_logger.registrar_evento(evento)
-            time.sleep(1)
+            time.sleep(Config.INTERVALO_CHECAGEM_OCIOSIDADE)
