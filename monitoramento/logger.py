@@ -19,3 +19,12 @@ class EventoLogger:
         logger.addHandler(handler)
         logger.setLevel(logging.INFO)
         return logger
+
+    @staticmethod
+    def fechar_loggers():
+        loggers = ['monitoramento', 'teclado_eventos.log', 'mouse_eventos.log', 'ociosidade_eventos.log']
+        for logger_name in loggers:
+            logger = logging.getLogger(logger_name)
+            for handler in logger.handlers:
+                handler.close()
+            logger.handlers = []
