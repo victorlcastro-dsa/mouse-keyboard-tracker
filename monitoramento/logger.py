@@ -1,4 +1,5 @@
 import logging
+import os
 
 class EventoLogger:
     def __init__(self, nome_arquivo):
@@ -13,6 +14,9 @@ class EventoLogger:
 
     @staticmethod
     def configurar_logger_principal():
+        if not os.path.exists('logs'):
+            os.makedirs('logs')
+
         logger = logging.getLogger('monitoramento')
         handler = logging.FileHandler('logs/monitoramento.log')
         handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))

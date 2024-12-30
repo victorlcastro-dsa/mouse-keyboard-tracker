@@ -1,18 +1,20 @@
 # mouse-keyboard-tracker
 
+Este projeto é um monitor de atividades de teclado e mouse que registra eventos de uso e períodos de inatividade. Ele é útil para rastrear a produtividade e o uso do computador ao longo do tempo, gerando logs detalhados de todas as ações realizadas pelo usuário.
+
 ## Criar e ativar o ambiente virtual
 
 ### No Linux/macOS
 
 ```bash
-python3.11 -m venv venv  # Cria o ambiente virtual com Python 3.11
+python3 -m venv venv  # Cria o ambiente virtual com Python 3
 source venv/bin/activate  # Ativa o ambiente virtual
 ```
 
 ## No Windows
 
 ```bash
-python3.11 -m venv venv  # Cria o ambiente virtual com Python 3.11
+python3 -m venv venv  # Cria o ambiente virtual com Python 3
 venv\Scripts\activate  # Ativa o ambiente virtual
 ```
 
@@ -22,16 +24,44 @@ venv\Scripts\activate  # Ativa o ambiente virtual
 pip install -r requirements.txt
 ```
 
-## Executar testes
-
-```bash
-python -m unittest discover -s tests
-```
-
 ## Executar o monitoramento
 
 ```bash
 python main.py
 ```
 
-10 minutos de ociosidade
+## Parar o monitoramento
+
+```bash
+Ctrl + C
+```
+
+## Estrutura do Projeto
+
+### Arquivos e seus papéis
+
+- **config.py**: Contém a classe `Config` que define várias constantes usadas em todo o projeto, como tempos de ociosidade, intervalos de checagem e tamanhos mínimos de arquivos. Este arquivo centraliza a configuração do sistema, facilitando ajustes e manutenção.
+
+- **eventos.py**: Implementa a classe `MonitorEventos` que captura eventos de teclado e mouse usando a biblioteca `pynput`. Ele registra esses eventos em logs e notifica observadores sobre novos eventos. Utiliza o padrão Observer para notificar outras partes do sistema sobre eventos de entrada.
+
+- **log_manager.py**: Contém a classe `LogManager` que gerencia os arquivos de log, verificando períodos de inatividade e movendo os logs para diretórios de relatórios organizados por data e período do dia. Este arquivo garante que os logs sejam armazenados e organizados corretamente.
+
+- **logger.py**: Define a classe `EventoLogger` que configura e gerencia loggers para diferentes tipos de eventos (teclado, mouse, ociosidade). Inclui métodos para registrar eventos e configurar o logger principal. Este arquivo centraliza a lógica de logging, facilitando a manutenção e a expansão.
+
+- **ociosidade.py**: Implementa a classe `MonitorOciosidade` que verifica períodos de inatividade do usuário. Utiliza o padrão Singleton para garantir que apenas uma instância da classe exista. Registra eventos de ociosidade e notifica quando o usuário está inativo por um período prolongado.
+
+- **main.py**: Arquivo principal que inicializa e executa o monitoramento. Configura loggers, inicia a captura de eventos e verifica a ociosidade em threads separadas. Este arquivo orquestra a interação entre os diferentes componentes do sistema.
+
+- **requirements.txt**: Lista as dependências do projeto, garantindo que todas as bibliotecas necessárias sejam instaladas. Atualmente, inclui a biblioteca `pynput` para captura de eventos de teclado e mouse.
+
+### Padrões de Projeto Utilizados
+
+- **Singleton**: Utilizado na classe `MonitorOciosidade` para garantir que apenas uma instância da classe exista, evitando conflitos e garantindo consistência nos dados de ociosidade.
+
+- **Observer**: Utilizado na classe `MonitorEventos` para notificar observadores (como `MonitorOciosidade`) sobre novos eventos de entrada, permitindo uma arquitetura desacoplada e extensível.
+
+### Por que esses padrões foram escolhidos?
+
+- **Singleton**: Garante que a verificação de ociosidade seja centralizada e consistente, evitando múltiplas instâncias que poderiam levar a resultados conflitantes.
+
+- **Observer**: Permite que diferentes partes do sistema reajam a eventos de entrada sem estarem fortemente acopladas, facilitando a adição de novos tipos de observadores no futuro.
