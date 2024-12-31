@@ -11,3 +11,9 @@ class Config:
     TEMPO_OCIOSO_TOTAL = 0  # Tempo ocioso total
     SEGUNDOS_EM_UM_MINUTO = 60  # Segundos em um minuto
     SEGUNDOS_EM_UMA_HORA = 3600  # Segundos em uma hora
+    TECLADO_LOG = 'teclado_eventos.log'
+    MOUSE_LOG = 'mouse_eventos.log'
+    LOG_DIR = 'logs'
+    OCIOSIDADE_LOG = 'ociosidade_eventos.log'
+    RELATORIOS_DIR = 'relatorios'
+    LOG_FORMAT = '%(asctime)s - %(message)s'
