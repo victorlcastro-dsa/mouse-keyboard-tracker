@@ -82,6 +82,10 @@ A biblioteca `mouse_keyboard_tracker` permite a personalização de várias conf
 
 ### Arquivos e seus papéis
 
+- **__init__.py**: Arquivo de inicialização do pacote, permitindo a importação de módulos e classes de outros arquivos no projeto.
+
+- **cli.py**: Implementa a interface de linha de comando (CLI) para a biblioteca, permitindo a configuração e execução do monitoramento de atividades por meio de argumentos de linha de comando. Este arquivo facilita o uso da biblioteca sem a necessidade de escrever código Python.
+
 - **config.py**: Contém a classe `Config` que define várias constantes usadas em todo o projeto, como tempos de ociosidade, intervalos de checagem e tamanhos mínimos de arquivos. Este arquivo centraliza a configuração do sistema, facilitando ajustes e manutenção.
 
 - **eventos.py**: Implementa a classe `MonitorEventos` que captura eventos de teclado e mouse usando a biblioteca `pynput`. Ele registra esses eventos em logs e notifica observadores sobre novos eventos. Utiliza o padrão Observer para notificar outras partes do sistema sobre eventos de entrada.
@@ -92,7 +96,7 @@ A biblioteca `mouse_keyboard_tracker` permite a personalização de várias conf
 
 - **ociosidade.py**: Implementa a classe `MonitorOciosidade` que verifica períodos de inatividade do usuário. Utiliza o padrão Singleton para garantir que apenas uma instância da classe exista. Registra eventos de ociosidade e notifica quando o usuário está inativo por um período prolongado.
 
-- **main.py**: Arquivo principal que inicializa e executa o monitoramento. Configura loggers, inicia a captura de eventos e verifica a ociosidade em threads separadas. Este arquivo orquestra a interação entre os diferentes componentes do sistema.
+- **setup.py**: Arquivo de configuração do pacote Python, que define metadados do projeto, como nome, versão, descrição e dependências. Este arquivo é usado para instalar o pacote via pip e gerenciar suas dependências.
 
 - **requirements.txt**: Lista as dependências do projeto, garantindo que todas as bibliotecas necessárias sejam instaladas. Atualmente, inclui a biblioteca `pynput` para captura de eventos de teclado e mouse.
 
@@ -155,6 +159,6 @@ mouse-keyboard-tracker --tempo_maximo_ocioso 300 --log_dir meus_logs
 
 ### Threads Utilizadas
 
-O projeto utiliza três threads principais para realizar o monitoramento de atividades. A primeira thread é responsável por capturar eventos de teclado, enquanto a segunda thread captura eventos de mouse, ambas implementadas na classe `MonitorEventos`. A terceira thread, implementada na classe `MonitorOciosidade`, verifica periodicamente a ociosidade do usuário. Essas threads são iniciadas no arquivo `main.py` e permitem que o monitoramento de eventos e a verificação de ociosidade ocorram simultaneamente, garantindo uma captura eficiente e em tempo real das atividades do usuário.
+O projeto utiliza três threads principais para realizar o monitoramento de atividades. A primeira thread é responsável por capturar eventos de teclado, enquanto a segunda thread captura eventos de mouse, ambas implementadas na classe `MonitorEventos`. A terceira thread, implementada na classe `MonitorOciosidade`, verifica periodicamente a ociosidade do usuário. Essas threads são iniciadas e permitem que o monitoramento de eventos e a verificação de ociosidade ocorram simultaneamente, garantindo uma captura eficiente e em tempo real das atividades do usuário.
 
 ---

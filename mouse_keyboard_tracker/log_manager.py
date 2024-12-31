@@ -14,18 +14,23 @@ class LogManager:
             if not os.path.exists(ociosidade_log_path) or os.path.getsize(ociosidade_log_path) == Config.TAMANHO_MINIMO_ARQUIVO:
                 with open(ociosidade_log_path, 'a') as log_file:
                     horario_fim = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    log_file.write(f'Não foram registrados períodos de inatividade entre {horario_inicio} e {horario_fim}.\n')
+                    mensagem = f'Não foram registrados períodos de inatividade entre {horario_inicio} e {horario_fim}.'
+                    log_file.write(mensagem + '\n')
+                    print(mensagem)
         except Exception as e:
-            print(f"Erro ao verificar ociosidade: {e}")
+            mensagem = f"Erro ao verificar ociosidade: {e}"
+            print(mensagem)
 
     @staticmethod
     def esperar_arquivo_preenchido(arquivo_path):
         """Espera até que o arquivo especificado seja preenchido."""
         try:
             while not os.path.exists(arquivo_path) or os.path.getsize(arquivo_path) == Config.TAMANHO_MINIMO_ARQUIVO:
+                print(f"Aguardando preenchimento do arquivo: {arquivo_path}")
                 time.sleep(Config.INTERVALO_VERIFICACAO_ARQUIVO)
         except Exception as e:
-            print(f"Erro ao esperar arquivo preenchido: {e}")
+            mensagem = f"Erro ao esperar arquivo preenchido: {e}"
+            print(mensagem)
 
     @staticmethod
     def determinar_periodo():
@@ -39,7 +44,8 @@ class LogManager:
             else:
                 return 'noturno'
         except Exception as e:
-            print(f"Erro ao determinar período: {e}")
+            mensagem = f"Erro ao determinar período: {e}"
+            print(mensagem)
             return 'desconhecido'
 
     @staticmethod
@@ -60,5 +66,7 @@ class LogManager:
             for arquivo in os.listdir(Config.LOG_DIR):
                 if arquivo.endswith('.log'):
                     shutil.move(os.path.join(Config.LOG_DIR, arquivo), os.path.join(destino, arquivo))
+                    print(f"Arquivo {arquivo} movido para {destino}")
         except Exception as e:
-            print(f"Erro ao mover logs para relatórios: {e}")
+            mensagem = f"Erro ao mover logs para relatórios: {e}"
+            print(mensagem)

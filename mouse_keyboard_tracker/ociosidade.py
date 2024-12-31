@@ -19,6 +19,7 @@ class MonitorOciosidade:
             self.tempo_ocioso_acumulado = Config.TEMPO_OCIOSO_ACUMULADO
             self.tempo_ocioso_total = Config.TEMPO_OCIOSO_TOTAL
             self.initialized = True
+            print("MonitorOciosidade inicializado.")
 
     def atualizar_ultimo_evento(self):
         """Atualiza o último evento e registra o tempo de ociosidade se necessário."""
@@ -28,8 +29,10 @@ class MonitorOciosidade:
             self.ultimo_evento = time.time()
             self.ocioso = False
             self.tempo_ocioso_acumulado = Config.TEMPO_OCIOSO_ACUMULADO
+            print("Último evento atualizado.")
         except Exception as e:
             self.ociosidade_logger.registrar_evento(f"Erro ao atualizar último evento: {e}")
+            print(f"Erro ao atualizar último evento: {e}")
 
     def verificar_ociosidade(self):
         """Verifica periodicamente se o usuário está ocioso."""
@@ -44,6 +47,7 @@ class MonitorOciosidade:
                 time.sleep(Config.INTERVALO_CHECAGEM_OCIOSIDADE)
         except Exception as e:
             self.ociosidade_logger.registrar_evento(f"Erro ao verificar ociosidade: {e}")
+            print(f"Erro ao verificar ociosidade: {e}")
 
     def _handle_ociosidade(self, tempo_ocioso):
         """Lida com a ociosidade do usuário."""
@@ -52,9 +56,11 @@ class MonitorOciosidade:
                 self.ocioso = True
                 evento = f"O usuário está ocioso desde {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(self.ultimo_evento))}."
                 self.ociosidade_logger.registrar_evento(evento)
+                print(evento)
             self.tempo_ocioso_acumulado = tempo_ocioso
         except Exception as e:
             self.ociosidade_logger.registrar_evento(f"Erro ao lidar com ociosidade: {e}")
+            print(f"Erro ao lidar com ociosidade: {e}")
 
     def _handle_atividade(self):
         """Lida com a atividade do usuário."""
@@ -62,11 +68,13 @@ class MonitorOciosidade:
             if self.ocioso:
                 evento = f"O usuário esteve ocioso por {int(self.tempo_ocioso_acumulado)} segundos."
                 self.ociosidade_logger.registrar_evento(evento)
+                print(evento)
                 self.ocioso = False
                 self.tempo_ocioso_total += self.tempo_ocioso_acumulado
                 self.tempo_ocioso_acumulado = Config.TEMPO_OCIOSO_ACUMULADO
         except Exception as e:
             self.ociosidade_logger.registrar_evento(f"Erro ao lidar com atividade: {e}")
+            print(f"Erro ao lidar com atividade: {e}")
 
     def _registrar_ociosidade(self):
         """Registra o tempo de ociosidade."""
@@ -76,9 +84,11 @@ class MonitorOciosidade:
             minutos, segundos = divmod(resto, Config.SEGUNDOS_EM_UM_MINUTO)
             evento = f"O usuário esteve ocioso por {int(horas)} horas, {int(minutos)} minutos e {int(segundos)} segundos."
             self.ociosidade_logger.registrar_evento(evento)
+            print(evento)
             self.tempo_ocioso_total += tempo_ocioso
         except Exception as e:
             self.ociosidade_logger.registrar_evento(f"Erro ao registrar ociosidade: {e}")
+            print(f"Erro ao registrar ociosidade: {e}")
 
     def registrar_tempo_total_ociosidade(self):
         """Registra o tempo total de ociosidade."""
@@ -87,5 +97,7 @@ class MonitorOciosidade:
             minutos, segundos = divmod(resto, Config.SEGUNDOS_EM_UM_MINUTO)
             evento = f"Tempo total de ociosidade: {int(horas)} horas, {int(minutos)} minutos e {int(segundos)} segundos."
             self.ociosidade_logger.registrar_evento(evento)
+            print(evento)
         except Exception as e:
             self.ociosidade_logger.registrar_evento(f"Erro ao registrar tempo total de ociosidade: {e}")
+            print(f"Erro ao registrar tempo total de ociosidade: {e}")

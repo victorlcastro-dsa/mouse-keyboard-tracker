@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='mouse_keyboard_tracker',
-    version='0.1.1',
+    version='0.1.2',
     packages=find_packages(),
     install_requires=[
         'pynput',
@@ -20,7 +20,6 @@ setup(
     url='https://github.com/victorlcastro-dsa/mouse-keyboard-tracker',
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.6',

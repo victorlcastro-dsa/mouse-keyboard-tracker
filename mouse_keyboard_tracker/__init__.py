@@ -16,6 +16,7 @@ def iniciar_monitoramento(configs=None):
         horario_inicio = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         logger = EventoLogger.configurar_logger_principal()
         logger.info("Monitoramento iniciado.")
+        print("Monitoramento iniciado.")
 
         monitor_eventos = MonitorEventos()
         monitor_ociosidade = MonitorOciosidade(tempo_maximo_ocioso=Config.TEMPO_MAXIMO_OCIOSO)
@@ -34,9 +35,10 @@ def encerrar_monitoramento(horario_inicio, logger, monitor_ociosidade):
     """Encerra o monitoramento de eventos e ociosidade."""
     try:
         logger.info("Monitoramento encerrado.")
+        print("Monitoramento encerrado.")
         monitor_ociosidade.registrar_tempo_total_ociosidade()
         EventoLogger.fechar_loggers()
         LogManager.mover_logs_para_relatorios(horario_inicio)
-        print("Monitoramento encerrado.")
+        print("Logs movidos para o diretório de relatórios.")
     except Exception as e:
         print(f"Erro ao encerrar monitoramento: {e}")

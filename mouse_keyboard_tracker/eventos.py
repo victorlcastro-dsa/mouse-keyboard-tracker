@@ -33,6 +33,7 @@ class MonitorEventos:
             self.notificar_observadores()
         except Exception as e:
             logger.registrar_evento(f"Erro ao registrar evento: {e}")
+            print(f"Erro ao registrar evento: {e}")
 
     def capturar_teclado(self):
         """Captura eventos de teclado."""
@@ -45,6 +46,7 @@ class MonitorEventos:
                 listener.join()
         except Exception as e:
             self.teclado_logger.registrar_evento(f"Erro ao capturar eventos de teclado: {e}")
+            print(f"Erro ao capturar eventos de teclado: {e}")
 
     def capturar_mouse(self):
         """Captura eventos de mouse."""
@@ -61,12 +63,15 @@ class MonitorEventos:
                 listener.join()
         except Exception as e:
             self.mouse_logger.registrar_evento(f"Erro ao capturar eventos de mouse: {e}")
+            print(f"Erro ao capturar eventos de mouse: {e}")
 
     def iniciar_monitoramento(self):
         """Inicia o monitoramento de eventos de teclado e mouse."""
         try:
             Thread(target=self.capturar_teclado, daemon=True).start()
             Thread(target=self.capturar_mouse, daemon=True).start()
+            print("Monitoramento de eventos iniciado.")
         except Exception as e:
             self.teclado_logger.registrar_evento(f"Erro ao iniciar monitoramento: {e}")
             self.mouse_logger.registrar_evento(f"Erro ao iniciar monitoramento: {e}")
+            print(f"Erro ao iniciar monitoramento: {e}")
