@@ -7,6 +7,11 @@ setup(
     install_requires=[
         'pynput',
     ],
+    entry_points={
+        'console_scripts': [
+            'mouse-keyboard-tracker=mouse_keyboard_tracker.cli:main',
+        ],
+    },
     author='Victor L. Castro',
     author_email='victorlcastro.dsa@gmail.com',
     description='Uma biblioteca para monitorar atividades de teclado e mouse.',

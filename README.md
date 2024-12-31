@@ -105,6 +105,35 @@ A biblioteca `mouse_keyboard_tracker` permite a personalização de várias conf
 
 - **Observer**: Permite que diferentes partes do sistema reajam a eventos de entrada sem estarem fortemente acopladas, facilitando a adição de novos tipos de observadores no futuro.
 
+## Uso via CLI
+
+Você pode usar a biblioteca via linha de comando. Aqui está um exemplo:
+
+```bash
+mouse-keyboard-tracker --tempo_maximo_ocioso 300 --intervalo_checagem_ociosidade 2 --log_dir meus_logs
+```
+
+### Argumentos Disponíveis
+
+- `--tempo_maximo_ocioso`: Tempo máximo de ociosidade em segundos (padrão: 600)
+- `--intervalo_checagem_ociosidade`: Intervalo de checagem de ociosidade em segundos (padrão: 1)
+- `--intervalo_sleep`: Intervalo de sleep em segundos (padrão: 10)
+- `--segundos_em_um_minuto`: Segundos em um minuto (padrão: 60)
+- `--segundos_em_uma_hora`: Segundos em uma hora (padrão: 3600)
+- `--hora_inicio_matutino`: Hora de início do período matutino (padrão: 6)
+- `--hora_inicio_vespertino`: Hora de início do período vespertino (padrão: 12)
+- `--hora_inicio_noturno`: Hora de início do período noturno (padrão: 18)
+- `--tamanho_minimo_arquivo`: Tamanho mínimo do arquivo em bytes (padrão: 0)
+- `--intervalo_verificacao_arquivo`: Intervalo de verificação do arquivo em segundos (padrão: 1)
+- `--tempo_ocioso_acumulado`: Tempo ocioso acumulado inicial (padrão: 0)
+- `--tempo_ocioso_total`: Tempo ocioso total (padrão: 0)
+- `--teclado_log`: Nome do arquivo de log de teclado (padrão: 'teclado_eventos.log')
+- `--mouse_log`: Nome do arquivo de log de mouse (padrão: 'mouse_eventos.log')
+- `--log_dir`: Diretório de logs (padrão: 'logs')
+- `--ociosidade_log`: Nome do arquivo de log de ociosidade (padrão: 'ociosidade_eventos.log')
+- `--relatorios_dir`: Diretório de relatórios (padrão: 'relatorios')
+- `--log_format`: Formato do log (padrão: '%(asctime)s - %(message)s')
+
 ### Threads Utilizadas
 
 O projeto utiliza três threads principais para realizar o monitoramento de atividades. A primeira thread é responsável por capturar eventos de teclado, enquanto a segunda thread captura eventos de mouse, ambas implementadas na classe `MonitorEventos`. A terceira thread, implementada na classe `MonitorOciosidade`, verifica periodicamente a ociosidade do usuário. Essas threads são iniciadas no arquivo `main.py` e permitem que o monitoramento de eventos e a verificação de ociosidade ocorram simultaneamente, garantindo uma captura eficiente e em tempo real das atividades do usuário.
