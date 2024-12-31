@@ -1,1 +1,1 @@
-pynput
+pynput # Usada para controlar e monitorar dispositivos de entrada, como teclado e mouse.

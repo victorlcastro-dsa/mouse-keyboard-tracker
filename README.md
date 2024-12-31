@@ -1,3 +1,6 @@
+
+---
+
 # mouse-keyboard-tracker
 
 Este projeto é uma biblioteca para monitorar atividades de teclado e mouse que registra eventos de uso e períodos de inatividade. Ele é útil para rastrear a produtividade e o uso do computador ao longo do tempo, gerando logs detalhados de todas as ações realizadas pelo usuário.
@@ -115,6 +118,8 @@ mouse-keyboard-tracker --tempo_maximo_ocioso 300 --intervalo_checagem_ociosidade
 
 ### Argumentos Disponíveis
 
+Os seguintes argumentos estão disponíveis. Se você não fornecer um argumento, o valor padrão será usado.
+
 - `--tempo_maximo_ocioso`: Tempo máximo de ociosidade em segundos (padrão: 600)
 - `--intervalo_checagem_ociosidade`: Intervalo de checagem de ociosidade em segundos (padrão: 1)
 - `--intervalo_sleep`: Intervalo de sleep em segundos (padrão: 10)
@@ -134,6 +139,22 @@ mouse-keyboard-tracker --tempo_maximo_ocioso 300 --intervalo_checagem_ociosidade
 - `--relatorios_dir`: Diretório de relatórios (padrão: 'relatorios')
 - `--log_format`: Formato do log (padrão: '%(asctime)s - %(message)s')
 
+### Exemplos de Uso
+
+Você pode executar o comando CLI sem fornecer nenhum argumento, e ele usará todos os valores padrão:
+
+```bash
+mouse-keyboard-tracker
+```
+
+Ou você pode fornecer apenas os argumentos que deseja alterar:
+
+```bash
+mouse-keyboard-tracker --tempo_maximo_ocioso 300 --log_dir meus_logs
+```
+
 ### Threads Utilizadas
 
 O projeto utiliza três threads principais para realizar o monitoramento de atividades. A primeira thread é responsável por capturar eventos de teclado, enquanto a segunda thread captura eventos de mouse, ambas implementadas na classe `MonitorEventos`. A terceira thread, implementada na classe `MonitorOciosidade`, verifica periodicamente a ociosidade do usuário. Essas threads são iniciadas no arquivo `main.py` e permitem que o monitoramento de eventos e a verificação de ociosidade ocorram simultaneamente, garantindo uma captura eficiente e em tempo real das atividades do usuário.
+
+---

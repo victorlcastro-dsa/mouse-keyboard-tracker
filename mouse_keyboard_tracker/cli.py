@@ -2,7 +2,7 @@ import argparse
 from mouse_keyboard_tracker import iniciar_monitoramento, encerrar_monitoramento
 import time
 
-def main():
+def configurar_parser():
     parser = argparse.ArgumentParser(description='Monitorar atividades de teclado e mouse.')
 
     # Configurações de tempo
@@ -33,9 +33,10 @@ def main():
     parser.add_argument('--relatorios_dir', type=str, default='relatorios', help='Diretório de relatórios')
     parser.add_argument('--log_format', type=str, default='%(asctime)s - %(message)s', help='Formato do log')
 
-    args = parser.parse_args()
+    return parser
 
-    configs = {
+def construir_configs(args):
+    return {
         'TEMPO_MAXIMO_OCIOSO': args.tempo_maximo_ocioso,
         'INTERVALO_CHECAGEM_OCIOSIDADE': args.intervalo_checagem_ociosidade,
         'INTERVALO_SLEEP': args.intervalo_sleep,
@@ -55,6 +56,11 @@ def main():
         'RELATORIOS_DIR': args.relatorios_dir,
         'LOG_FORMAT': args.log_format
     }
+
+def main():
+    parser = configurar_parser()
+    args = parser.parse_args()
+    configs = construir_configs(args)
 
     horario_inicio, logger, monitor_ociosidade = iniciar_monitoramento(configs=configs)
 
