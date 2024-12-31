@@ -1,5 +1,5 @@
 import time
-from monitoramento.logger import EventoLogger
+from mouse_keyboard_tracker.logger import EventoLogger
 from .config import Config
 
 class MonitorOciosidade:

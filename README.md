@@ -1,39 +1,38 @@
 # mouse-keyboard-tracker
 
-Este projeto é um monitor de atividades de teclado e mouse que registra eventos de uso e períodos de inatividade. Ele é útil para rastrear a produtividade e o uso do computador ao longo do tempo, gerando logs detalhados de todas as ações realizadas pelo usuário.
+Este projeto é uma biblioteca para monitorar atividades de teclado e mouse que registra eventos de uso e períodos de inatividade. Ele é útil para rastrear a produtividade e o uso do computador ao longo do tempo, gerando logs detalhados de todas as ações realizadas pelo usuário.
 
-## Criar e ativar o ambiente virtual
+## Instalação
 
-### No Linux/macOS
+Você pode instalar a biblioteca usando pip:
 
 ```bash
-python3 -m venv venv  # Cria o ambiente virtual com Python 3
-source venv/bin/activate  # Ativa o ambiente virtual
+pip install mouse_keyboard_tracker
 ```
 
-## No Windows
+## Uso
 
-```bash
-python3 -m venv venv  # Cria o ambiente virtual com Python 3
-venv\Scripts\activate  # Ativa o ambiente virtual
-```
+Aqui está um exemplo de como usar a biblioteca:
 
-## Instalar dependências
+```python
+from mouse_keyboard_tracker import iniciar_monitoramento, encerrar_monitoramento
+import time
 
-```bash
-pip install -r requirements.txt
-```
+def main():
+    horario_inicio, logger, monitor_ociosidade = iniciar_monitoramento()
 
-## Executar o monitoramento
+    if not horario_inicio or not logger or not monitor_ociosidade:
+        print("Falha ao iniciar o monitoramento.")
+        return
 
-```bash
-python main.py
-```
+    try:
+        while True:
+            time.sleep(10)
+    except KeyboardInterrupt:
+        encerrar_monitoramento(horario_inicio, logger, monitor_ociosidade)
 
-## Parar o monitoramento
-
-```bash
-Ctrl + C
+if __name__ == "__main__":
+    main()
 ```
 
 ## Estrutura do Projeto

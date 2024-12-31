@@ -2,7 +2,7 @@ from pynput import keyboard, mouse
 from threading import Thread
 import time
 from collections import deque
-from monitoramento.logger import EventoLogger
+from mouse_keyboard_tracker.logger import EventoLogger
 from .config import Config
 
 class MonitorEventos:

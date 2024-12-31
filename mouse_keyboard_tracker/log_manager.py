@@ -2,7 +2,7 @@ import os
 import shutil
 import time
 from datetime import datetime
-from monitoramento.config import Config
+from mouse_keyboard_tracker.config import Config
 
 class LogManager:
 
