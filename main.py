@@ -7,7 +7,8 @@ from threading import Thread
 import time
 from datetime import datetime
 
-def main():
+def configurar_monitoramento():
+    """Configura e inicializa o monitoramento de eventos e ociosidade."""
     horario_inicio = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     logger = EventoLogger.configurar_logger_principal()
     logger.info("Monitoramento iniciado.")
@@ -19,6 +20,12 @@ def main():
     monitor_eventos.iniciar_monitoramento()
 
     Thread(target=monitor_ociosidade.verificar_ociosidade, daemon=True).start()
+
+    return horario_inicio, logger, monitor_ociosidade
+
+def main():
+    """Função principal que executa o monitoramento."""
+    horario_inicio, logger, monitor_ociosidade = configurar_monitoramento()
 
     try:
         while True:
