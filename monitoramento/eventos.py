@@ -23,15 +23,19 @@ class MonitorEventos:
         for observador in self.observers:
             observador.atualizar_ultimo_evento()
 
+    def _registrar_evento(self, logger, eventos, evento):
+        """Registra um evento e notifica os observadores."""
+        timestamp = time.time()
+        eventos.append((timestamp, evento))
+        logger.registrar_evento(evento)
+        self.ultimo_evento = timestamp
+        self.notificar_observadores()
+
     def capturar_teclado(self):
         """Captura eventos de teclado."""
         def on_press(key):
             evento = f"Tecla pressionada: {key}"
-            timestamp = time.time()
-            self.teclado_eventos.append((timestamp, evento))
-            self.teclado_logger.registrar_evento(evento)
-            self.ultimo_evento = timestamp
-            self.notificar_observadores()
+            self._registrar_evento(self.teclado_logger, self.teclado_eventos, evento)
 
         with keyboard.Listener(on_press=on_press) as listener:
             listener.join()
@@ -40,19 +44,11 @@ class MonitorEventos:
         """Captura eventos de mouse."""
         def on_click(x, y, button, pressed):
             evento = f"Mouse {'clicado' if pressed else 'solto'} em ({x}, {y}) com {button}"
-            timestamp = time.time()
-            self.mouse_eventos.append((timestamp, evento))
-            self.mouse_logger.registrar_evento(evento)
-            self.ultimo_evento = timestamp
-            self.notificar_observadores()
+            self._registrar_evento(self.mouse_logger, self.mouse_eventos, evento)
 
         def on_move(x, y):
             evento = f"Mouse movido para ({x}, {y})"
-            timestamp = time.time()
-            self.mouse_eventos.append((timestamp, evento))
-            self.mouse_logger.registrar_evento(evento)
-            self.ultimo_evento = timestamp
-            self.notificar_observadores()
+            self._registrar_evento(self.mouse_logger, self.mouse_eventos, evento)
 
         with mouse.Listener(on_click=on_click, on_move=on_move) as listener:
             listener.join()
