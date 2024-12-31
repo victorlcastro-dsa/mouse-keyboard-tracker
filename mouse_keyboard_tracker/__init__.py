@@ -7,9 +7,12 @@ from threading import Thread
 from datetime import datetime
 import time
 
-def iniciar_monitoramento():
+def iniciar_monitoramento(configs=None):
     """Configura e inicializa o monitoramento de eventos e ociosidade."""
     try:
+        if configs:
+            Config.update_config(**configs)
+
         horario_inicio = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         logger = EventoLogger.configurar_logger_principal()
         logger.info("Monitoramento iniciado.")

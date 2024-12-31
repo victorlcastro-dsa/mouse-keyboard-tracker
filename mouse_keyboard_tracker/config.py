@@ -28,3 +28,9 @@ class Config:
     OCIOSIDADE_LOG = 'ociosidade_eventos.log'  # Nome do arquivo de log de ociosidade
     RELATORIOS_DIR = 'relatorios'  # Diretório de relatórios
     LOG_FORMAT = '%(asctime)s - %(message)s'  # Formato do log
+
+    @classmethod
+    def update_config(cls, **kwargs):
+        for key, value in kwargs.items():
+            if hasattr(cls, key):
+                setattr(cls, key, value)

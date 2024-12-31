@@ -19,7 +19,10 @@ from mouse_keyboard_tracker import iniciar_monitoramento, encerrar_monitoramento
 import time
 
 def main():
-    horario_inicio, logger, monitor_ociosidade = iniciar_monitoramento()
+    configs = {
+        'TEMPO_MAXIMO_OCIOSO': 600,
+    }
+    horario_inicio, logger, monitor_ociosidade = iniciar_monitoramento(configs=configs)
 
     if not horario_inicio or not logger or not monitor_ociosidade:
         print("Falha ao iniciar o monitoramento.")
@@ -34,6 +37,43 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+## Configurações Disponíveis
+
+A biblioteca `mouse_keyboard_tracker` permite a personalização de várias configurações através da classe `Config`. Abaixo estão as configurações disponíveis e seus valores padrão:
+
+### Configurações de Tempo
+
+- **TEMPO_MAXIMO_OCIOSO**: Tempo máximo de ociosidade em segundos (padrão: 600)
+- **INTERVALO_CHECAGEM_OCIOSIDADE**: Intervalo de checagem de ociosidade em segundos (padrão: 1)
+- **INTERVALO_SLEEP**: Intervalo de sleep em segundos (padrão: 10)
+- **SEGUNDOS_EM_UM_MINUTO**: Segundos em um minuto (padrão: 60)
+- **SEGUNDOS_EM_UMA_HORA**: Segundos em uma hora (padrão: 3600)
+
+### Configurações de Horário
+
+- **HORA_INICIO_MATUTINO**: Hora de início do período matutino (padrão: 6)
+- **HORA_INICIO_VESPERTINO**: Hora de início do período vespertino (padrão: 12)
+- **HORA_INICIO_NOTURNO**: Hora de início do período noturno (padrão: 18)
+
+### Configurações de Arquivos
+
+- **TAMANHO_MINIMO_ARQUIVO**: Tamanho mínimo do arquivo em bytes (padrão: 0)
+- **INTERVALO_VERIFICACAO_ARQUIVO**: Intervalo de verificação do arquivo em segundos (padrão: 1)
+
+### Configurações de Ociosidade
+
+- **TEMPO_OCIOSO_ACUMULADO**: Tempo ocioso acumulado inicial (padrão: 0)
+- **TEMPO_OCIOSO_TOTAL**: Tempo ocioso total (padrão: 0)
+
+### Configurações de Logs
+
+- **TECLADO_LOG**: Nome do arquivo de log de teclado (padrão: 'teclado_eventos.log')
+- **MOUSE_LOG**: Nome do arquivo de log de mouse (padrão: 'mouse_eventos.log')
+- **LOG_DIR**: Diretório de logs (padrão: 'logs')
+- **OCIOSIDADE_LOG**: Nome do arquivo de log de ociosidade (padrão: 'ociosidade_eventos.log')
+- **RELATORIOS_DIR**: Diretório de relatórios (padrão: 'relatorios')
+- **LOG_FORMAT**: Formato do log (padrão: '%(asctime)s - %(message)s')
 
 ## Estrutura do Projeto
 
