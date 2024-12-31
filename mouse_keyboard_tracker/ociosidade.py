@@ -19,7 +19,6 @@ class MonitorOciosidade:
             self.tempo_ocioso_acumulado = Config.TEMPO_OCIOSO_ACUMULADO
             self.tempo_ocioso_total = Config.TEMPO_OCIOSO_TOTAL
             self.initialized = True
-            print("MonitorOciosidade inicializado.")
 
     def atualizar_ultimo_evento(self):
         """Atualiza o último evento e registra o tempo de ociosidade se necessário."""
@@ -29,7 +28,6 @@ class MonitorOciosidade:
             self.ultimo_evento = time.time()
             self.ocioso = False
             self.tempo_ocioso_acumulado = Config.TEMPO_OCIOSO_ACUMULADO
-            print("Último evento atualizado.")
         except Exception as e:
             self.ociosidade_logger.registrar_evento(f"Erro ao atualizar último evento: {e}")
             print(f"Erro ao atualizar último evento: {e}")
