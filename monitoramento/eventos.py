@@ -25,11 +25,14 @@ class MonitorEventos:
 
     def _registrar_evento(self, logger, eventos, evento):
         """Registra um evento e notifica os observadores."""
-        timestamp = time.time()
-        eventos.append((timestamp, evento))
-        logger.registrar_evento(evento)
-        self.ultimo_evento = timestamp
-        self.notificar_observadores()
+        try:
+            timestamp = time.time()
+            eventos.append((timestamp, evento))
+            logger.registrar_evento(evento)
+            self.ultimo_evento = timestamp
+            self.notificar_observadores()
+        except Exception as e:
+            logger.registrar_evento(f"Erro ao registrar evento: {e}")
 
     def capturar_teclado(self):
         """Captura eventos de teclado."""
@@ -37,8 +40,11 @@ class MonitorEventos:
             evento = f"Tecla pressionada: {key}"
             self._registrar_evento(self.teclado_logger, self.teclado_eventos, evento)
 
-        with keyboard.Listener(on_press=on_press) as listener:
-            listener.join()
+        try:
+            with keyboard.Listener(on_press=on_press) as listener:
+                listener.join()
+        except Exception as e:
+            self.teclado_logger.registrar_evento(f"Erro ao capturar eventos de teclado: {e}")
 
     def capturar_mouse(self):
         """Captura eventos de mouse."""
@@ -50,10 +56,17 @@ class MonitorEventos:
             evento = f"Mouse movido para ({x}, {y})"
             self._registrar_evento(self.mouse_logger, self.mouse_eventos, evento)
 
-        with mouse.Listener(on_click=on_click, on_move=on_move) as listener:
-            listener.join()
+        try:
+            with mouse.Listener(on_click=on_click, on_move=on_move) as listener:
+                listener.join()
+        except Exception as e:
+            self.mouse_logger.registrar_evento(f"Erro ao capturar eventos de mouse: {e}")
 
     def iniciar_monitoramento(self):
         """Inicia o monitoramento de eventos de teclado e mouse."""
-        Thread(target=self.capturar_teclado, daemon=True).start()
-        Thread(target=self.capturar_mouse, daemon=True).start()
+        try:
+            Thread(target=self.capturar_teclado, daemon=True).start()
+            Thread(target=self.capturar_mouse, daemon=True).start()
+        except Exception as e:
+            self.teclado_logger.registrar_evento(f"Erro ao iniciar monitoramento: {e}")
+            self.mouse_logger.registrar_evento(f"Erro ao iniciar monitoramento: {e}")
